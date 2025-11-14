@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+MTEX_ROOT="$(dirname "$(realpath "$0")")/.."
+TEMPLATES_DIR="templates"
+PROJECTS_DIR="projects"
+PROJECT_NAME=$(basename $PROJECTS_DIR)
+BUILD_DIR="build"
+PDF_DIR="pdfs"
+DATE=$(date +%d-%m-%Y-%H-%M-%S)
+
+export TEXINPUTS="$MTEX_ROOT/classes//:$TEXINPUTS"
+
+init() {
+    mkdir -p $PROJECTS_DIR
+    mkdir -p $BUILD_DIR
+    mkdir -p $PDF_DIR
+}
+
+compile() {
+    local project="$1"
+    local src="$project/main.tex"
+    local name=$(basename "$project")
+    local outdir="$BUILD_DIR/$name"
+    local outpdfdir="$PDF_DIR/$name"
+
+    mkdir -p "$outdir" "$outpdfdir"
+    
+    echo "Compiling $name: $project"
+    latexmk -r "$MTEX_ROOT/.latexmkrc" -pdf -jobname=$name -outdir=$outdir $src
+    cp "$outdir/$name.pdf" "$outpdfdir/$name.pdf"
+    cp "$outdir/$name.pdf" "$outpdfdir/$name-$DATE.pdf"
+    chmod 444 "$outpdfdir/$name-$DATE.pdf"
+}
+
+clean_project() {
+    local project="$1"
+    local src="$project/main.tex"
+    local name=$(basename "$project")
+    local outdir="$BUILD_DIR/$name"
+    local outpdfdir="$PDF_DIR/$name"
+
+    echo "Clean $name: $project"
+    rm -rf "$outdir" "$outpdfdir"
+}
+
+start_template_note() {
+    local project="$1"
+    local project_dir=$PROJECTS_DIR/$project
+    local tex_file="$project_dir/main.tex"
+
+    echo "Start note project: $project_dir"
+
+    mkdir -p $project_dir "$project_dir/figures"
+    touch "$project_dir/references.bib"
+
+    cat << EOF >> $tex_file
+\documentclass{$MTEX_ROOT/classes/mtex-note}
+\input{$MTEX_ROOT/utils/commands.tex}
+
+\graphicspath{{$PROJECT_NAME/$project/figures}}
+
+% \author{Baye Malick Gning \thanks{\texttt{\href{bmalick.gning@gmail.com}{bmalick.gning@gmail.com}}}}
+\author{Baye Malick Gning}
+\date{today}
+\title{This is the title}
+
+\begin{document}
+
+\maketitle
+
+\end{document}
+EOF
+}
+
+# mTeX CLI tool
+# Author: Baye Malick Gning
+#
+
+init
+
+case "$1" in 
+
+    start)
+        project="$2"
+        echo Create new project: $PROJECTS_DIR/$project
+        mkdir -p $PROJECTS_DIR/$project
+    ;;
+
+    start-note)
+        start_template_note $2
+
+    ;;
+
+    build)
+        project=$2
+
+        compile $2
+    ;;
+
+    clean)
+        clean_project $2
+    ;;
+
+    *)
+        echo "mtex helper"
+        echo "Usage:"
+        echo "  mtex start <project-name>"
+        echo "  mtex build <project-name>"
+        echo "  mtex clean <project-name>"
+
+esac

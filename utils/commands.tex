@@ -1,0 +1,20 @@
+\makeatletter
+
+% keys: makeimage
+\define@key{imagekwargs}{path}{\def\imagekwargs@path{#1}}
+\define@key{imagekwargs}{caption}{\def\imagekwargs@caption{#1}}
+\define@key{imagekwargs}{ref}{\def\imagekwargs@ref{#1}}
+\define@key{imagekwargs}{width}{\def\imagekwargs@width{#1}}
+
+
+\newcommand{\makeimage}[2]{
+    \setkeys{imagekwargs}{#1}
+    \begin{figure}[#2]
+        \centering
+        \includegraphics[width=\imagekwargs@width\linewidth]{\imagekwargs@path}
+        \caption{\imagekwargs@caption}
+        \label{fig:\imagekwargs@ref}
+    \end{figure}
+}
+
+\makeatother
