@@ -1,5 +1,6 @@
 /projects
 /build
 /pdfs
+/logs-pdfs
 *.pdf
 
