@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 
-MTEX_ROOT="$(dirname "$(realpath "$0")")/.."
-TEMPLATES_DIR="templates"
-PROJECTS_DIR="projects"
-PROJECT_NAME=$(basename $PROJECTS_DIR)
-BUILD_DIR="build"
-PDF_DIR="pdfs"
-PDF_LOGS_DIR="logs-pdfs"
+# absolute path of mtex directory
+MTEX_ROOT="$(cd "$(dirname "$(realpath "$0")")/.." && pwd)"
+
+# current working directory
+WORK_DIR="$(pwd)"
+
+BUILD_DIR="$WORK_DIR/.mtex-build"
+PDF_DIR="$WORK_DIR/pdfs"
+PDF_LOGS_DIR="$WORK_DIR/logs-pdfs"
 DATE=$(date +%d-%m-%Y-%H-%M-%S)
 
-export TEXINPUTS="$MTEX_ROOT/classes//:$TEXINPUTS"
+export TEXINPUTS="$MTEX_ROOT/classes//:$MTEX_ROOT/utils//:$WORK_DIR//:$TEXINPUTS"
 
 init() {
-    mkdir -p $PROJECTS_DIR
     mkdir -p $BUILD_DIR
     mkdir -p $PDF_DIR
+    mkdir -p $PDF_LOGS_DIR
 }
 
 compile() {
@@ -24,13 +26,19 @@ compile() {
     local outdir="$BUILD_DIR/$name"
     local outpdflogsdir="$PDF_LOGS_DIR/$name"
 
-    mkdir -p "$outdir" "$outpdflogsdir"
-    
-    echo "Compiling $name: $project"
-    latexmk -r "$MTEX_ROOT/.latexmkrc" -pdf -jobname=$name -outdir=$outdir $src
-    cp "$outdir/$name.pdf" "$outpdflogsdir/$name-$DATE.pdf"
-    cp "$outdir/$name.pdf" "$PDF_DIR/$name.pdf"
-    chmod 444 "$outpdflogsdir/$name-$DATE.pdf"
+    cd $WORK_DIR
+    echo "Worrking directory: $WORK_DIR"
+
+    if [ ! -f $src ]; then
+        echo "$src not found."
+    else
+        mkdir -p "$outdir" "$outpdflogsdir"
+        echo "Compiling $name: $project"
+        latexmk -r "$MTEX_ROOT/.latexmkrc" -pdf -jobname=$name -outdir=$outdir $src
+        cp "$outdir/$name.pdf" "$outpdflogsdir/$name-$DATE.pdf"
+        cp "$outdir/$name.pdf" "$PDF_DIR/$name.pdf"
+        chmod 444 "$outpdflogsdir/$name-$DATE.pdf"
+    fi
     
 }
 
@@ -46,7 +54,7 @@ clean_project() {
 
 start_template_note() {
     local project="$1"
-    local project_dir=$PROJECTS_DIR/$project
+    local project_dir=$WORK_DIR/$project
     local tex_file="$project_dir/main.tex"
 
     echo "Start note project: $project_dir"
@@ -56,10 +64,10 @@ start_template_note() {
     touch "$project_dir/appendix.tex"
 
     cat << EOF >> $tex_file
-\documentclass{$MTEX_ROOT/classes/mtex-note}
-\input{$MTEX_ROOT/utils/commands.tex}
+\documentclass{mtex-note}
 
-\graphicspath{{$PROJECT_NAME/$project/figures}}
+\input{commands.tex}
+\graphicspath{{figures/}}
 
 \author{Baye Malick Gning \thanks{\texttt{\href{bmalick.gning@gmail.com}{bmalick.gning@gmail.com}}}}
 \date{\today}
@@ -75,7 +83,7 @@ EOF
 
 start_template_report() {
     local project="$1"
-    local project_dir=$PROJECTS_DIR/$project
+    local project_dir=$WORK_DIR/$project
     local tex_file="$project_dir/main.tex"
 
     echo "Start report project: $project_dir"
@@ -85,10 +93,10 @@ start_template_report() {
     touch "$project_dir/appendix.tex"
 
     cat << EOF >> $tex_file
-\documentclass{$MTEX_ROOT/classes/mtex-report}
-\input{$MTEX_ROOT/utils/commands.tex}
+\documentclass{mtex-note}
 
-\graphicspath{{$PROJECT_NAME/$project/figures}}
+\input{commands.tex}
+\graphicspath{{figures/}}
 
 \author{Baye Malick Gning \thanks{\texttt{\href{bmalick.gning@gmail.com}{bmalick.gning@gmail.com}}}}
 \date{\today}
@@ -124,8 +132,9 @@ case "$1" in
 
     start)
         project="$2"
-        echo Create new project: $PROJECTS_DIR/$project
-        mkdir -p $PROJECTS_DIR/$project
+        echo "Create empty project: $WORK_DIR/$project"
+        mkdir -p $WORK_DIR/$project
+        echo "Project directory created at: $WORK_DIR/$project"
     ;;
 
     start-note)
