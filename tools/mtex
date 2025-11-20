@@ -77,6 +77,9 @@ start_template_note() {
 
 \maketitle
 
+\bibliographystyle{apalike}
+\bibliography{$project/references}
+
 \end{document}
 EOF
 }
@@ -93,7 +96,7 @@ start_template_report() {
     touch "$project_dir/appendix.tex"
 
     cat << EOF >> $tex_file
-\documentclass{mtex-note}
+\documentclass{mtex-report}
 
 \input{commands.tex}
 \graphicspath{{figures/}}
@@ -105,6 +108,43 @@ start_template_report() {
 \begin{document}
 
 \maketitle
+
+\bibliographystyle{apalike}
+\bibliography{$project/references}
+
+\end{document}
+EOF
+}
+
+
+start_template_presentation() {
+    local project="$1"
+    local project_dir=$WORK_DIR/$project
+    local tex_file="$project_dir/main.tex"
+
+    echo "Start presentation project: $project_dir"
+
+    mkdir -p $project_dir "$project_dir/figures"
+    touch "$project_dir/references.bib"
+
+    cat << EOF >> $tex_file
+\documentclass{mtex-presentation}
+
+\input{commands.tex}
+\graphicspath{{figures/}}
+
+\author[B. M. Gning]{Baye Malick Gning}
+\date{\today}
+
+\title{This is the title}
+\subtitle{Subtitle}
+
+\begin{document}
+
+\maketitle
+
+\bibliographystyle{apalike}
+\bibliography{$project/references}
 
 \end{document}
 EOF
@@ -143,6 +183,10 @@ case "$1" in
 
     start-report)
         start_template_report $2
+    ;;
+
+    start-prez)
+        start_template_presentation $2
     ;;
 
     build)

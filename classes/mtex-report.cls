@@ -21,9 +21,13 @@
 \RequirePackage{algorithm} % for algorithms
 \RequirePackage{algpseudocode}
 \RequirePackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry} % configure the page layout
-% \RequirePackage{geometry} % configure the page layout
-% \geometry{margin=1in}
 \RequirePackage[authoryear]{natbib} % bibliography
+\RequirePackage{subcaption} % subfigures
+\RequirePackage{longtable} % insert a very long table, which takes up two or more pages
+\RequirePackage{makecell} % for cells in table
+\RequirePackage{multirow} % merge several columns
+\RequirePackage[table]{xcolor}
+\RequirePackage{booktabs} % for nice tables
 
 
 

@@ -1,5 +1,6 @@
-/projects
 /build
+/mtex-build
+/.mtex-build
 /pdfs
 /logs-pdfs
 *.pdf

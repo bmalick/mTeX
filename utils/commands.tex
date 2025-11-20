@@ -7,6 +7,7 @@
 \define@key{imagekwargs}{width}{\def\imagekwargs@width{#1}}
 
 
+% command: makeimage
 \newcommand{\makeimage}[2]{
     \setkeys{imagekwargs}{#1}
     \begin{figure}[#2]
@@ -15,6 +16,107 @@
         \caption{\imagekwargs@caption}
         \label{fig:\imagekwargs@ref}
     \end{figure}
+}
+
+% command: makeemails
+\newcommand{\makeemails}[4]{
+    \begingroup
+         \hypersetup{hidelinks}
+         \if\relax\detokenize\expandafter{#1}\relax\else \texttt{\href{mailto:#1}{#1}}\fi
+         \if\relax\detokenize\expandafter{#2}\relax\else , \texttt{\href{mailto:#2}{#2}}\fi
+         \if\relax\detokenize\expandafter{#3}\relax\else , \texttt{\href{mailto:#3}{#3}}\fi
+         \if\relax\detokenize\expandafter{#4}\relax\else , \texttt{\href{mailto:#4}{#4}}\fi
+    \endgroup
+}
+
+% Keys for multiimages
+\define@key{multiimageskwargs}{caption}{\def\multiimageskwargs@caption{#1}}
+\define@key{multiimageskwargs}{ref}{\def\multiimageskwargs@ref{#1}}
+% Keys for image a
+\define@key{multiimageskwargs}{apath}{\def\multiimageskwargs@apath{#1}}
+\define@key{multiimageskwargs}{acaption}{\def\multiimageskwargs@acaption{#1}}
+\define@key{multiimageskwargs}{aref}{\def\multiimageskwargs@aref{#1}}
+% Keys for image b
+\define@key{multiimageskwargs}{bpath}{\def\multiimageskwargs@bpath{#1}}
+\define@key{multiimageskwargs}{bcaption}{\def\multiimageskwargs@bcaption{#1}}
+\define@key{multiimageskwargs}{bref}{\def\multiimageskwargs@bref{#1}}
+% % Keys for image c
+% \define@key{multiimageskwargs}{cpath}{\def\multiimageskwargs@cpath{#1}}
+% \define@key{multiimageskwargs}{ccaption}{\def\multiimageskwargs@ccaption{#1}}
+% \define@key{multiimageskwargs}{cref}{\def\multiimageskwargs@cref{#1}}
+% % Keys for image d
+% \define@key{multiimageskwargs}{dpath}{\def\multiimageskwargs@dpath{#1}}
+% \define@key{multiimageskwargs}{dcaption}{\def\multiimageskwargs@dcaption{#1}}
+% \define@key{multiimageskwargs}{dref}{\def\multiimageskwargs@dref{#1}}
+
+% command: makemultiimages
+\newcommand{\makemultiimages}[3]{
+    \setkeys{multiimageskwargs}{#1}
+    \begin{figure}[#3]
+        \centering
+        % For 2 images
+        \ifnum#2=2
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{\multiimageskwargs@apath}
+                \caption{\multiimageskwargs@acaption}
+                \label{fig:\multiimageskwargs@aref}
+            \end{subfigure}\hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{\multiimageskwargs@bpath}
+                \caption{\multiimageskwargs@bcaption}
+                \label{fig:\multiimageskwargs@bref}
+            \end{subfigure}
+        \fi
+        % % For 3 images
+        % \ifnum#2=3
+        %     \begin{subfigure}{0.32\linewidth}
+        %         \includegraphics[width=\linewidth]{\multiimageskwargs@apath}
+        %         \caption{\multiimageskwargs@acaption}
+        %         \label{fig:\multiimageskwargs@aref}
+        %     \end{subfigure}\hfill
+        %     \begin{subfigure}{0.32\linewidth}
+        %         \includegraphics[width=\linewidth]{\multiimageskwargs@bpath}
+        %         \caption{\multiimageskwargs@bcaption}
+        %         \label{fig:\multiimageskwargs@bref}
+        %     \end{subfigure}\hfill
+        %     \begin{subfigure}{0.32\linewidth}
+        %         \includegraphics[width=\linewidth]{\multiimageskwargs@cpath}
+        %         \caption{\multiimageskwargs@ccaption}
+        %         \label{fig:\multiimageskwargs@cref}
+        %     \end{subfigure}
+        % \fi
+        % % For 4 images
+        % \ifnum#2=4
+        %     \begin{subfigure}{0.48\linewidth}
+        %         \includegraphics[width=\linewidth]{\multiimageskwargs@apath}
+        %         \caption{\multiimageskwargs@acaption}
+        %         \label{fig:\multiimageskwargs@aref}
+        %     \end{subfigure}\hfill
+        %     \begin{subfigure}{0.48\linewidth}
+        %         \includegraphics[width=\linewidth]{\multiimageskwargs@bpath}
+        %         \caption{\multiimageskwargs@bcaption}
+        %         \label{fig:\multiimageskwargs@bref}
+        %     \end{subfigure}\\
+        %     \begin{subfigure}{0.48\linewidth}
+        %         \includegraphics[width=\linewidth]{\multiimageskwargs@cpath}
+        %         \caption{\multiimageskwargs@ccaption}
+        %         \label{fig:\multiimageskwargs@cref}
+        %     \end{subfigure}\hfill
+        %     \begin{subfigure}{0.48\linewidth}
+        %         \includegraphics[width=\linewidth]{\multiimageskwargs@dpath}
+        %         \caption{\multiimageskwargs@dcaption}
+        %         \label{fig:\multiimageskwargs@dref}
+        %     \end{subfigure}
+        % \fi
+        \caption{\multiimageskwargs@caption}
+        \label{fig:\multiimageskwargs@ref}
+    \end{figure}%
+}
+
+% command: presentationfig
+\newcommand{\presentationfig}[2]{
+    \centering
+\includegraphics[width=#1\linewidth]{#2}
 }
 
 \makeatother

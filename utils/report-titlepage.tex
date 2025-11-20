@@ -1,0 +1,95 @@
+\makeatletter
+
+% Keys for titlepage
+\define@key{titlepagekwargs}{schoollogo}{\def\titlepagekwargs@schoollogo{#1}}
+\define@key{titlepagekwargs}{companylogo}{\def\titlepagekwargs@companylogo{#1}}
+\define@key{titlepagekwargs}{universitylogo}{\def\titlepagekwargs@universitylogo{#1}}
+\define@key{titlepagekwargs}{lablogo}{\def\titlepagekwargs@lablogo{#1}}
+\define@key{titlepagekwargs}{schoolname}{\def\titlepagekwargs@schoolname{#1}}
+\define@key{titlepagekwargs}{companyname}{\def\titlepagekwargs@companyname{#1}}
+\define@key{titlepagekwargs}{universityname}{\def\titlepagekwargs@universityname{#1}}
+\define@key{titlepagekwargs}{labname}{\def\titlepagekwargs@labname{#1}}
+\define@key{titlepagekwargs}{docname}{\def\titlepagekwargs@docname{#1}}
+\define@key{titlepagekwargs}{diploma}{\def\titlepagekwargs@diploma{#1}}
+\define@key{titlepagekwargs}{title}{\def\titlepagekwargs@title{#1}}
+\define@key{titlepagekwargs}{studentname}{\def\titlepagekwargs@studentname{#1}}
+\define@key{titlepagekwargs}{studentemail}{\def\titlepagekwargs@studentemail{#1}}
+\define@key{titlepagekwargs}{supervisorscompany}{\def\titlepagekwargs@supervisorscompany{#1}}
+\define@key{titlepagekwargs}{supervisorscompanyemails}{\def\titlepagekwargs@supervisorscompanyemails{#1}}
+\define@key{titlepagekwargs}{supervisorsschool}{\def\titlepagekwargs@supervisorsschool{#1}}
+\define@key{titlepagekwargs}{supervisorsschoolemails}{\def\titlepagekwargs@supervisorsschoolemails{#1}}
+\define@key{titlepagekwargs}{supervisorsuniversity}{\def\titlepagekwargs@supervisorsuniversity{#1}}
+\define@key{titlepagekwargs}{supervisorsuniversityemails}{\def\titlepagekwargs@supervisorsuniversityemails{#1}}
+\define@key{titlepagekwargs}{date}{\def\titlepagekwargs@date{#1}}
+
+
+\newcommand{\maketitlepage}[1]{
+  \setkeys{titlepagekwargs}{#1}
+  \begin{titlepage}
+    \centering
+    \noindent
+    \begin{minipage}{0.24\textwidth} 
+      \includegraphics[width=0.8\linewidth]{\titlepagekwargs@schoollogo}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+      \flushright
+      \includegraphics[width=0.8\linewidth]{\titlepagekwargs@universitylogo}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+      \flushright
+      \includegraphics[width=0.8\linewidth]{\titlepagekwargs@lablogo}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+      \flushright
+      \includegraphics[width=0.8\linewidth]{\titlepagekwargs@companylogo}
+    \end{minipage}
+
+    \vspace{1cm}
+    {\huge\bfseries \titlepagekwargs@docname \par}
+
+    \vspace{1cm}
+    {\Huge\bfseries \titlepagekwargs@title \par}
+
+      \vspace{1cm} {\scshape \Large par \par} \vspace{0.4cm}
+    {\scshape \LARGE \titlepagekwargs@studentname \par}
+
+    \vspace{1cm}
+    {\scshape \LARGE \titlepagekwargs@diploma \par}
+
+    \vspace{0.5cm}
+    \begin{flushleft}
+        \Large \textbf{Stagiaire:} \par
+        \titlepagekwargs@studentname \par
+        \titlepagekwargs@studentemail
+    \end{flushleft}
+
+    \vspace{0.1cm}
+    \begin{flushleft}
+        \Large \textbf{Encadrants à \titlepagekwargs@companyname:} \par
+        \titlepagekwargs@supervisorscompany \par
+        \titlepagekwargs@supervisorscompanyemails
+    \end{flushleft}
+
+    \vspace{0.1cm}
+    \begin{flushleft}
+        \Large \textbf{Encadrants à \titlepagekwargs@schoolname:} \par
+        \titlepagekwargs@supervisorsschool \par
+        \titlepagekwargs@supervisorsschoolemails
+    \end{flushleft}
+
+    \vspace{0.1cm}
+    \begin{flushleft}
+        \Large \textbf{Encadrants à \titlepagekwargs@universityname:} \par
+        \titlepagekwargs@supervisorsuniversity \par
+        \titlepagekwargs@supervisorsuniversityemails
+    \end{flushleft}
+    \vfill
+    \vspace{0.2cm}
+    {\Large \titlepagekwargs@date \par}
+  \end{titlepage}
+}
+
+\makeatother
