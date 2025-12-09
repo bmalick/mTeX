@@ -10,6 +10,8 @@
 \RequirePackage{setspace}
 \RequirePackage{parskip}
 \RequirePackage{lmodern}
+\RequirePackage[none]{hyphenat} % disables all hyphenation
+
 
 \geometry{margin=1.5cm}
 

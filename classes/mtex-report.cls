@@ -28,18 +28,19 @@
 \RequirePackage{multirow} % merge several columns
 \RequirePackage[table]{xcolor}
 \RequirePackage{booktabs} % for nice tables
-
-
-
-% \RequirePackage{microtype} % avoid hypenation
+\RequirePackage{stmaryrd} % for integers brackets
+\RequirePackage[none]{hyphenat} % disables all hyphenation
 
 % [theorem styles]
 \theoremstyle{definition}  % make text upright instead of italic
 
 % [theorem-like environements]
+\newtheoremstyle{nodot}
+  {}{}{}{}{\bfseries}{}{.5em}{}
+\theoremstyle{nodot}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{corrolary}{Corrolary}[theorem]
-\newtheorem{lemma}{Lemma}[theorem]
+\newtheorem{corrolary}[theorem]{Corrolary}
+\newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{proposition}{Proposition}[section]
 \newtheorem{example}{Example}[section]

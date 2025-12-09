@@ -16,6 +16,7 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{titlesec}
 \RequirePackage{ifthen}
+\RequirePackage[none]{hyphenat} % disables all hyphenation
 
 \setlist{leftmargin=2em,labelsep=0.5em,nosep,itemsep=0.25\baselineskip,after=\vskip0.25\baselineskip}
 \raggedbottom
@@ -30,7 +31,7 @@
 \pagestyle{empty}
 % Reduce parskip
 \setlength{\parskip}{0pt}
-\setlength{\parindent}{0pt}
+% \setlength{\parindent}{0pt}
 
 \newcommand{\candidateName}{}
 \newcommand{\setcandidatename}[1]{\renewcommand{\candidateName}{#1}}
@@ -63,39 +64,41 @@
 
 \newcommand{\makexp}[1]{
     \setkeys{makexpargs}{#1}
-    % \noindent\textbf{\makexpargs@post}, \makexpargs@company, \makexpargs@location \hfill \makexpargs@duration\par
-    \noindent\makexpargs@post, \makexpargs@company, \makexpargs@location \hfill \makexpargs@duration\par
+    \textbf{\makexpargs@post} \hfill \makexpargs@duration\par
+    \textsc{\makexpargs@company} \hfill \makexpargs@location\par
     \makexpargs@desc\par
     \vspace{0.3em}
 }
 
 \newcommand{\makeedu}[1]{
     \setkeys{makeeduargs}{#1}
-    % \noindent\textbf{\makeeduargs@diploma}, \makeeduargs@school, \hfill \makeeduargs@duration\par
-    \noindent\makeeduargs@diploma, \makeeduargs@school \hfill \makeeduargs@duration\par
-    \textit{\makeeduargs@desc}\par
+    \textbf{\makeeduargs@diploma}, \makeeduargs@school, \hfill \makeeduargs@duration\par
+    % \makeeduargs@diploma, \makeeduargs@school \hfill \makeeduargs@duration\par
+    % \textit{\makeeduargs@desc}\par
+    \makeeduargs@desc\par
     \vspace{0.3em}
 }
 
 \newcommand{\makeproject}[1]{
     \setkeys{makeprojectargs}{#1}
-    % \noindent\textbf{\makeprojectargs@title}\par
-    \noindent\makeprojectargs@title\par
+    \textbf{\makeprojectargs@title}\par
+    % \makeprojectargs@title\par
     \makeprojectargs@desc\par
     \vspace{0.3em}
 }
+
 
 \newcommand{\candidateheader}[1]{
     \begin{center}
         {\Huge\bfseries \candidateName}\\[0.3em]
         \begingroup
         \hypersetup{hidelinks}
-        \ifthenelse{\equal{#1}{has-git}}{
-            \candidateTelephone\ | \candidateEmail\ | \candidateGithub\ | \url{\candidateLinkedin}\\[0.3em]
+        \ifthenelse{\equal{#1}{gitt}}{
+            \candidateTelephone\ | \candidateEmail\ | \url{\candidateGithub}\ | \url{\candidateLinkedin}\\[0.3em]
         }{
             \candidateTelephone\ | \candidateEmail\ | \url{\candidateLinkedin}\\[0.3em]
+        }
         \endgroup
-    }
     \end{center}
 }
 
@@ -111,8 +114,18 @@
     \medskip
 }
 
-\newcommand{\cvskill}[2]{%
-\noindent\textbf{\makebox[4cm][l]{#1}}#2\par
+\newcommand{\cvskill}[2]{
+\noindent
+\begin{tabular}{@{}p{4cm} p{\dimexpr\linewidth-4cm}@{}}
+\textbf{#1} & #2
+\end{tabular}\par
+}
+
+
+\newcommand{\presentationparagraph}[1]{
+\begin{center}
+    \textbf{#1}
+\end{center}
 }
 
 

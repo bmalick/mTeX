@@ -56,12 +56,15 @@ start_template_note() {
     local project="$1"
     local project_dir=$WORK_DIR/$project
     local tex_file="$project_dir/main.tex"
+    local note_tex_file="$project_dir/$1.tex"
+    local note_tex_relative_path="$project_dir/$1.tex"
 
     echo "Start note project: $project_dir"
 
     mkdir -p $project_dir "$project_dir/figures"
     touch "$project_dir/references.bib"
     touch "$project_dir/appendix.tex"
+    touch "$note_tex_file"
 
     cat << EOF >> $tex_file
 \documentclass{mtex-note}
@@ -76,6 +79,10 @@ start_template_note() {
 \begin{document}
 
 \maketitle
+\tableofcontents
+\newpage
+
+\input{$note_tex_relative_path}
 
 \bibliographystyle{apalike}
 \bibliography{$project/references}
