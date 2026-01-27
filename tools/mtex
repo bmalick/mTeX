@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# mTeX CLI tool
+# Author: Baye Malick Gning
+
+
 # absolute path of mtex directory
 MTEX_ROOT="$(cd "$(dirname "$(realpath "$0")")/.." && pwd)"
 
@@ -17,6 +21,23 @@ init() {
     mkdir -p $BUILD_DIR
     mkdir -p $PDF_DIR
     mkdir -p $PDF_LOGS_DIR
+}
+
+verify_init() {
+    missing=false
+    echo $PDF_DIR $PDF_LOGS_DIR
+
+    for dir in "$BUILD_DIR" "$PDF_DIR" "$PDF_LOGS_DIR"; do
+        [[ -d "$dir" ]] || {
+            echo "Missing directory: $dir"
+            missing=true
+        }
+    done
+
+    if [[ "$missing" == true ]]; then
+        echo "Verify your current directory or use mtex init"
+        exit 1
+    fi
 }
 
 compile() {
@@ -73,7 +94,7 @@ start_template_note() {
 \graphicspath{{figures/}}
 
 \author{Baye Malick Gning \thanks{\texttt{\href{bmalick.gning@gmail.com}{bmalick.gning@gmail.com}}}}
-\date{\today}
+\date{Last updated: \today}
 \title{This is the title}
 
 \begin{document}
@@ -109,7 +130,7 @@ start_template_report() {
 \graphicspath{{figures/}}
 
 \author{Baye Malick Gning \thanks{\texttt{\href{bmalick.gning@gmail.com}{bmalick.gning@gmail.com}}}}
-\date{\today}
+\date{Last updated: \today}
 \title{This is the title}
 
 \begin{document}
@@ -169,15 +190,14 @@ read_pdf() {
     fi
 }
 
-# mTeX CLI tool
-# Author: Baye Malick Gning
-#
-
-init
-
 case "$1" in 
 
+    init)
+        init
+    ;;
+
     start)
+        verify_init
         project="$2"
         echo "Create empty project: $WORK_DIR/$project"
         mkdir -p $WORK_DIR/$project
@@ -185,18 +205,22 @@ case "$1" in
     ;;
 
     start-note)
+        init
         start_template_note $2
     ;;
 
     start-report)
+        init
         start_template_report $2
     ;;
 
     start-prez)
+        init
         start_template_presentation $2
     ;;
 
     build)
+        verify_init
         project=$2
         compile $2
     ;;
@@ -206,6 +230,7 @@ case "$1" in
     ;;
 
     read)
+        verify_init
         read_pdf $2
     ;;
 
