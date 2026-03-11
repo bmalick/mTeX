@@ -41,25 +41,38 @@ verify_init() {
 }
 
 compile() {
-    local project="$1"
-    local src="$project/main.tex"
-    local name=$(basename "$project")
+    local input="$1"
+    local engine="$2"
+
+    if [[ "$input" == *.tex ]]; then
+        local src="$input"
+        local name=$(basename "$input" .tex)
+    else
+        local src="$input/main.tex"
+        local name=$(basename "$input")
+    fi
+
+    local engine_flag=""
+    [[ -n "$engine" ]] && engine_flag="-$engine"
+
     local outdir="$BUILD_DIR/$name"
     local outpdflogsdir="$PDF_LOGS_DIR/$name"
 
-    cd $WORK_DIR
-    echo "Worrking directory: $WORK_DIR"
-
-    if [ ! -f $src ]; then
+    if [ ! -f "$src" ]; then
         echo "$src not found."
-    else
-        mkdir -p "$outdir" "$outpdflogsdir"
-        echo "Compiling $name: $project"
-        latexmk -r "$MTEX_ROOT/.latexmkrc" -pdf -jobname=$name -outdir=$outdir $src
-        cp "$outdir/$name.pdf" "$outpdflogsdir/$name-$DATE.pdf"
-        cp "$outdir/$name.pdf" "$PDF_DIR/$name.pdf"
-        chmod 444 "$outpdflogsdir/$name-$DATE.pdf"
+        return 1
     fi
+
+    # cd $WORK_DIR
+    # echo "Worrking directory: $WORK_DIR"
+
+    mkdir -p "$outdir" "$outpdflogsdir"
+    echo "Compiling $name: $input"
+    # latexmk -r "$MTEX_ROOT/.latexmkrc" -"$engine" -jobname="$name" -outdir="$outdir" "$src"
+    latexmk -r "$MTEX_ROOT/.latexmkrc" $engine_flag -jobname="$name" -outdir="$outdir" "$src"
+    cp "$outdir/$name.pdf" "$outpdflogsdir/$name-$DATE.pdf"
+    cp "$outdir/$name.pdf" "$PDF_DIR/$name.pdf"
+    chmod 444 "$outpdflogsdir/$name-$DATE.pdf"
     
 }
 
@@ -221,8 +234,7 @@ case "$1" in
 
     build)
         verify_init
-        project=$2
-        compile $2
+        compile "$2" "${3:-pdf}"
     ;;
 
     clean)

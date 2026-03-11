@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{mtex-note}[2025/19/14 custom note class]
+\ProvidesClass{mtex-report}[2025/19/14 custom report class]
 
 % \LoadClass[a4paper,10pt]{article}
 \LoadClass[a4paper,10pt]{report}

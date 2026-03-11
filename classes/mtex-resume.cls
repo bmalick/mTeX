@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{mtex-resume}[2025/07/09 Custom resume class]
+\ProvidesClass{mtex-resume}[2025/07/09 custom resume class]
 
 % \LoadClass[a4paper,10pt]{article}
 \LoadClass[a4paper,10pt]{extarticle}
