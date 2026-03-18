@@ -1,9 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{mtex-resume}[2025/07/09 custom resume class]
+\ProvidesClass{mtex-research-cv}[2026/03/18 custom resume class]
 
-\LoadClass[a4paper,10pt]{article}
+\LoadClass[11pt, letterpaper]{article}
 
-\RequirePackage[margin=0.7cm]{geometry}
+\RequirePackage[margin=1in]{geometry}
 \RequirePackage{hyperref}
 \RequirePackage[osf]{newpxtext}
 \RequirePackage[T1]{fontenc}
@@ -23,13 +23,25 @@
 % Reduce parskip
 \setlength{\parskip}{0pt}
 
-% Remove page numbers
-\pagestyle{empty}
-
 \hypersetup{
     colorlinks=true,
     urlcolor=cyan,
 }
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[L]{Baye Malick Gning}
+\fancyhead[R]{\thepage}
+
+\fancypagestyle{firstpage}
+{
+    \fancyhead[L]{}    
+    \fancyhead[R]{}
+}
+
+\thispagestyle{firstpage}
 
 \newcommand{\makehref}[1]{
     \href{#1}{#1}}
