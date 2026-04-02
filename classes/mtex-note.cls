@@ -31,6 +31,8 @@
 \RequirePackage{stmaryrd} % for integers brackets
 \RequirePackage[none]{hyphenat} % disables all hyphenation
 
+\RequirePackage[osf]{newpxtext}
+\RequirePackage[T1]{fontenc}
 
 % [theorem styles]
 \theoremstyle{definition}  % make text upright instead of italic

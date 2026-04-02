@@ -25,7 +25,8 @@
 
 \hypersetup{
     colorlinks=true,
-    urlcolor=cyan,
+    % urlcolor=cyan,
+    urlcolor=[RGB]{180,83,9},
 }
 
 \pagestyle{fancy}

@@ -4,13 +4,14 @@
 \LoadClass[a4paper,11pt]{extarticle}
 
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
 \RequirePackage[french]{babel}
 \RequirePackage{geometry}
 \RequirePackage{setspace}
 \RequirePackage{parskip}
 \RequirePackage{lmodern}
 \RequirePackage[none]{hyphenat} % disables all hyphenation
+\RequirePackage[osf]{newpxtext}
+\RequirePackage[T1]{fontenc}
 
 
 \geometry{margin=1.5cm}

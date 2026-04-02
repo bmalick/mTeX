@@ -28,7 +28,8 @@
 
 \hypersetup{
     colorlinks=true,
-    urlcolor=cyan,
+    % urlcolor=cyan,
+    urlcolor=[RGB]{180,83,9},
 }
 
 \newcommand{\makehref}[1]{

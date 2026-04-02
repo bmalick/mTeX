@@ -12,7 +12,7 @@ WORK_DIR="$(pwd)"
 
 BUILD_DIR="$WORK_DIR/.mtex-build"
 PDF_DIR="$WORK_DIR/pdfs"
-PDF_LOGS_DIR="$WORK_DIR/logs-pdfs"
+PDF_LOGS_DIR="$WORK_DIR/.logs-pdfs"
 DATE=$(date +%d-%m-%Y-%H-%M-%S)
 
 export TEXINPUTS="$MTEX_ROOT/classes//:$MTEX_ROOT/utils//:$WORK_DIR//:$TEXINPUTS"

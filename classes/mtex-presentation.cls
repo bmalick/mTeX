@@ -15,6 +15,9 @@
 \RequirePackage{tikz}
 \usetikzlibrary{fadings}
 
+\RequirePackage[osf]{newpxtext}
+\RequirePackage[T1]{fontenc}
+
 % Presentation colors
 \newcommand{\setprimarycolor}[3]{\definecolor{primaryColor}{RGB}{#1,#2,#3}}
 \newcommand{\setsecondarycolor}[3]{\definecolor{secondaryColor}{RGB}{#1,#2,#3}}
