@@ -32,6 +32,7 @@
 \RequirePackage[none]{hyphenat} % disables all hyphenation
 \RequirePackage[osf]{newpxtext}
 \RequirePackage[T1]{fontenc}
+\RequirePackage{listings} % highlight code
 
 % [theorem styles]
 \theoremstyle{definition}  % make text upright instead of italic
@@ -53,3 +54,25 @@
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
 \numberwithin{table}{section}
+
+% code style
+\definecolor{codebg}{HTML}{F7F7F7}
+\definecolor{codeborder}{HTML}{E2E2E2}
+\definecolor{keyword}{HTML}{A626A4}
+\definecolor{string}{HTML}{50A14F}
+\definecolor{comment}{HTML}{A0A1A7}
+
+\lstset{
+    basicstyle      = \ttfamily\small,
+    keywordstyle    = \color{keyword},
+    stringstyle     = \color{string},
+    commentstyle    = \color{comment}\itshape,
+    backgroundcolor = \color{codebg},
+    frame           = single,
+    rulecolor       = \color{codeborder},
+    framesep        = 6pt,
+    breaklines      = true,
+    showstringspaces= false,
+    numbers         = none,
+    tabsize         = 4,
+}
