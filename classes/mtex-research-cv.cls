@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{mtex-research-cv}[2026/03/18 custom resume class]
 
-\LoadClass[11pt, letterpaper]{article}
+\LoadClass[10pt, letterpaper]{article}
 
 \RequirePackage[margin=1in]{geometry}
 \RequirePackage{hyperref}
@@ -26,7 +26,8 @@
 \hypersetup{
     colorlinks=true,
     % urlcolor=cyan,
-    urlcolor=[RGB]{180,83,9},
+    % urlcolor=[RGB]{180,83,9},
+    urlcolor=black
 }
 
 \pagestyle{fancy}
@@ -44,8 +45,7 @@
 
 \thispagestyle{firstpage}
 
-\newcommand{\makehref}[1]{
-    \href{#1}{#1}}
+\newcommand{\makehref}[2]{\href{#2}{\texttt{#1}}}
 
 \newenvironment{cventry}
   {\begin{list}{}{\setlength{\leftmargin}{1.5em}}\item[]}

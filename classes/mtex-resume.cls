@@ -29,11 +29,11 @@
 \hypersetup{
     colorlinks=true,
     % urlcolor=cyan,
-    urlcolor=[RGB]{180,83,9},
+    % urlcolor=[RGB]{180,83,9},
+    urlcolor=black
 }
 
-\newcommand{\makehref}[1]{
-    \href{#1}{#1}}
+\newcommand{\makehref}[2]{\href{#2}{\texttt{#1}}}
 
 \newenvironment{cventry}
   {\begin{list}{}{\setlength{\leftmargin}{1.5em}}\item[]}

@@ -92,6 +92,7 @@ start_template_note() {
     local tex_file="$project_dir/main.tex"
     local note_tex_file="$project_dir/$1.tex"
     local note_tex_relative_path="$project_dir/$1.tex"
+    local appendix_tex_relative_path="$project_dir/appendix.tex"
 
     echo "Start note project: $project_dir"
 
@@ -117,12 +118,19 @@ start_template_note() {
 \newpage
 
 \input{$note_tex_relative_path}
+\input{$appendix_tex_relative_path}
 
 \bibliographystyle{apalike}
 \bibliography{$project/references}
 
 \end{document}
 EOF
+
+    cat << EOF >> "$project_dir/appendix.tex"
+\newpage
+\appendix
+EOF
+
 }
 
 start_template_report() {
