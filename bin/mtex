@@ -213,8 +213,7 @@ start_template_cheatsheet() {
 
     echo "Start cheatsheet project: $project_dir"
 
-    mkdir -p $project_dir "$project_dir/figures"
-    touch "$project_dir/references.bib"
+    mkdir -p $project_dir
 
     cat << EOF > $tex_file
 \documentclass{mtex-cheatsheet}
@@ -223,7 +222,7 @@ start_template_cheatsheet() {
 
 \color{bodycolor}
 
-{\bfseries\Large TITLE}
+{\bfseries\Large TOOL cheatsheet}
 \vspace{1em}
 
 \begin{multicols}{2}
@@ -323,7 +322,8 @@ case "$1" in
     ;;
     start-cheat)
         init
-        start_template_presentation $2
+        start_template_cheatsheet $2
+    ;;
     build)
         verify_init
         compile "$2" "${3:-pdf}"
