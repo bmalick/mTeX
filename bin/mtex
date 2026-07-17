@@ -3,17 +3,12 @@
 # mTeX CLI tool
 # Author: Baye Malick Gning
 
-
-# absolute path of mtex directory
 MTEX_ROOT="$(cd "$(dirname "$(realpath "$0")")/.." && pwd)"
-
-# current working directory
 WORK_DIR="$(pwd)"
 
 BUILD_DIR="$WORK_DIR/.mtex-build"
 PDF_DIR="$WORK_DIR/pdfs"
 PDF_LOGS_DIR="$WORK_DIR/.logs-pdfs"
-DATE=$(date +%d-%m-%Y-%H-%M-%S)
 
 export TEXINPUTS="$MTEX_ROOT/classes//:$MTEX_ROOT/utils//:$WORK_DIR//:$TEXINPUTS"
 
@@ -43,6 +38,8 @@ verify_init() {
 compile() {
     local input="$1"
     local engine="$2"
+    local current_date=$(date +%d-%m-%Y-%H-%M-%S)
+
 
     if [[ "$input" == *.tex ]]; then
         local src="$input"
@@ -63,17 +60,12 @@ compile() {
         return 1
     fi
 
-    # cd $WORK_DIR
-    # echo "Worrking directory: $WORK_DIR"
-
     mkdir -p "$outdir" "$outpdflogsdir"
     echo "Compiling $name: $input"
-    # latexmk -r "$MTEX_ROOT/.latexmkrc" -"$engine" -jobname="$name" -outdir="$outdir" "$src"
     latexmk -r "$MTEX_ROOT/.latexmkrc" $engine_flag -jobname="$name" -outdir="$outdir" "$src"
-    cp "$outdir/$name.pdf" "$outpdflogsdir/$name-$DATE.pdf"
+    cp "$outdir/$name.pdf" "$outpdflogsdir/$name-$current_date.pdf"
     cp "$outdir/$name.pdf" "$PDF_DIR/$name.pdf"
-    chmod 444 "$outpdflogsdir/$name-$DATE.pdf"
-    
+    chmod 444 "$outpdflogsdir/$name-$current_date.pdf"
 }
 
 clean_project() {
@@ -88,6 +80,9 @@ clean_project() {
 
 start_template_note() {
     local project="$1"
+    if [[ ${#project} -eq 0 ]]; then
+        project="."
+    fi
     local project_dir=$WORK_DIR/$project
     local tex_file="$project_dir/main.tex"
     local note_tex_file="$project_dir/$1.tex"
@@ -101,7 +96,7 @@ start_template_note() {
     touch "$project_dir/appendix.tex"
     touch "$note_tex_file"
 
-    cat << EOF >> $tex_file
+    cat << EOF > $tex_file
 \documentclass{mtex-note}
 
 \input{commands.tex}
@@ -126,15 +121,17 @@ start_template_note() {
 \end{document}
 EOF
 
-    cat << EOF >> "$project_dir/appendix.tex"
+    cat << EOF > "$project_dir/appendix.tex"
 \newpage
 \appendix
 EOF
-
 }
 
 start_template_report() {
     local project="$1"
+    if [[ ${#project} -eq 0 ]]; then
+        project="."
+    fi
     local project_dir=$WORK_DIR/$project
     local tex_file="$project_dir/main.tex"
 
@@ -144,7 +141,7 @@ start_template_report() {
     touch "$project_dir/references.bib"
     touch "$project_dir/appendix.tex"
 
-    cat << EOF >> $tex_file
+    cat << EOF > $tex_file
 \documentclass{mtex-report}
 
 \input{commands.tex}
@@ -168,6 +165,9 @@ EOF
 
 start_template_presentation() {
     local project="$1"
+    if [[ ${#project} -eq 0 ]]; then
+        project="."
+    fi
     local project_dir=$WORK_DIR/$project
     local tex_file="$project_dir/main.tex"
 
@@ -176,11 +176,15 @@ start_template_presentation() {
     mkdir -p $project_dir "$project_dir/figures"
     touch "$project_dir/references.bib"
 
-    cat << EOF >> $tex_file
+    cat << EOF > $tex_file
 \documentclass{mtex-presentation}
 
 \input{commands.tex}
 \graphicspath{{figures/}}
+
+\setprimarycolor{31}{56}{100}
+\setsecondarycolor{140}{140}{140}
+\settertiarycolor{60}{60}{60}
 
 \author[B. M. Gning]{Baye Malick Gning}
 \date{\today}
@@ -192,10 +196,93 @@ start_template_presentation() {
 
 \maketitle
 
-\bibliographystyle{apalike}
-\bibliography{$project/references}
+% \bibliographystyle{apalike}
+% \bibliography{$project/references}
 
 \end{document}
+EOF
+}
+
+start_template_cheatsheet() {
+    local project="$1"
+    if [[ ${#project} -eq 0 ]]; then
+        project="."
+    fi
+    local project_dir=$WORK_DIR/$project
+    local tex_file="$project_dir/main.tex"
+
+    echo "Start cheatsheet project: $project_dir"
+
+    mkdir -p $project_dir "$project_dir/figures"
+    touch "$project_dir/references.bib"
+
+    cat << EOF > $tex_file
+\documentclass{mtex-cheatsheet}
+
+\begin{document}
+
+\color{bodycolor}
+
+{\bfseries\Large TITLE}
+\vspace{1em}
+
+\begin{multicols}{2}
+
+\section*{SECTION1}
+
+{\footnotesize
+\begin{tabularx}{\linewidth}{l l}
+\end{tabularx}
+}
+
+\section*{SECTION2}
+{\footnotesize
+\begin{tabularx}{\linewidth}{l l}
+\end{tabularx}
+}
+
+\section*{Copying \& syncing}
+{\footnotesize\color{bodycolor} SUBSECTION1}
+\vspace{0.5em}
+
+{\footnotesize
+\begin{tabularx}{\linewidth}{l X}
+\end{tabularx}
+}
+
+{\footnotesize\color{bodycolor} SUBSECTION2}
+\vspace{0.5em}
+
+{\footnotesize
+\begin{tabularx}{\linewidth}{l X}
+\end{tabularx}
+}
+
+\columnbreak
+
+
+\section*{SECTION4}
+{\footnotesize
+\begin{tabularx}{\linewidth}{l l}
+\end{tabularx}
+}
+
+\section*{SECTION5}
+{\footnotesize
+\begin{tabularx}{\linewidth}{l l}
+\end{tabularx}
+}
+
+\section*{SECTION6}
+{\footnotesize
+\begin{tabularx}{\linewidth}{l X}
+\end{tabularx}
+}
+
+\end{multicols}
+
+\end{document}
+
 EOF
 }
 
@@ -212,11 +299,9 @@ read_pdf() {
 }
 
 case "$1" in 
-
     init)
         init
     ;;
-
     start)
         verify_init
         project="$2"
@@ -224,41 +309,36 @@ case "$1" in
         mkdir -p $WORK_DIR/$project
         echo "Project directory created at: $WORK_DIR/$project"
     ;;
-
     start-note)
         init
         start_template_note $2
     ;;
-
     start-report)
         init
         start_template_report $2
     ;;
-
     start-prez)
         init
         start_template_presentation $2
     ;;
-
+    start-cheat)
+        init
+        start_template_presentation $2
     build)
         verify_init
         compile "$2" "${3:-pdf}"
     ;;
-
     clean)
         clean_project $2
     ;;
-
     read)
         verify_init
         read_pdf $2
     ;;
-
     *)
         echo "mtex helper"
         echo "Usage:"
         echo "  mtex start <project-name>"
         echo "  mtex build <project-name>"
         echo "  mtex clean <project-name>"
-
 esac

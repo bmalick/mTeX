@@ -47,8 +47,6 @@
 \setbeamercolor{item}{fg=primaryColor}
 % \setbeamertemplate{itemize item}[circle]
 
-
-
 % \renewcommand{\familydefault}{\sfdefault}
 
 % navigation symbols
@@ -73,51 +71,52 @@
 \setbeamercolor{section in toc shaded}{fg=primaryColor!90}
 \setbeamercolor{subsection in toc shaded}{fg=gray!80}
 
-% Custom commands for classification and conservation
-\newcommand{\classificationID}{}
-\newcommand{\conservationInfo}{}
-\newcommand{\setclassification}[1]{\renewcommand{\classificationID}{#1}}
-\newcommand{\setconservation}[1]{\renewcommand{\conservationInfo}{#1}}
-\newcommand{\instituteLogo}{}
-\newcommand{\companyLogo}{}
-\newcommand{\leftSideLogo}{}
-\newcommand{\rightSideLogo}{}
-\newcommand{\setinstitutelogo}[1]{\renewcommand{\instituteLogo}{#1}}
-\newcommand{\setcompanylogo}[1]{\renewcommand{\companyLogo}{#1}}
-\newcommand{\setleftsidelogo}[1]{\renewcommand{\leftSideLogo}{#1}}
-\newcommand{\setrightsidelogo}[1]{\renewcommand{\rightSideLogo}{#1}}
-% Custom footline
-\setbeamertemplate{footline}{
-  \leavevmode
-  \hbox{
-    % left-side logo
-    \begin{beamercolorbox}[wd=0.13\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
-      \includegraphics[width=15ex]{\leftSideLogo}
-    \end{beamercolorbox}
-
-    \begin{beamercolorbox}[wd=0.05\paperwidth,ht=2.5ex,dp=2.5ex,left]{frame number in head/foot}
-        {\color{primaryColor}\fontsize{6pt}{6pt}\textbf{\selectfont\insertframenumber{} / \inserttotalframenumber}}
-    \end{beamercolorbox}
-    \begin{beamercolorbox}[wd=0.35\paperwidth,ht=2.5ex,dp=2.5ex,left]{author in head/foot}
-        {\color{gray}\fontsize{4pt}{6pt}\selectfont \insertshortauthor{} / \insertshortinstitute}
-    \end{beamercolorbox}
-    \begin{beamercolorbox}[wd=0.1\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
-        {\color{gray}\fontsize{4pt}{6pt}\selectfont \insertshortdate{}}
-    \end{beamercolorbox}
-    \begin{beamercolorbox}[wd=0.1\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
-        {\color{gray}\fontsize{4pt}{6pt}\selectfont Classification: \classificationID}
-    \end{beamercolorbox}
-    \begin{beamercolorbox}[wd=0.1\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
-        {\color{gray}\fontsize{4pt}{6pt}\selectfont Conservation: \conservationInfo}
-    \end{beamercolorbox}
-
-    % left-side logo
-    \begin{beamercolorbox}[wd=0.13\paperwidth,ht=2.5ex,dp=2.5ex,right]{date in head/foot}
-      \includegraphics[width=15ex]{\rightSideLogo}\hspace{1.5ex}
-    \end{beamercolorbox}
-  }
-  \vskip0pt
-}
+% % Custom commands for classification and conservation
+% \newcommand{\classificationID}{}
+% \newcommand{\conservationInfo}{}
+% \newcommand{\setclassification}[1]{\renewcommand{\classificationID}{#1}}
+% \newcommand{\setconservation}[1]{\renewcommand{\conservationInfo}{#1}}
+% \newcommand{\instituteLogo}{}
+% \newcommand{\companyLogo}{}
+% \newcommand{\leftSideLogo}{}
+% \newcommand{\rightSideLogo}{}
+% \newcommand{\setinstitutelogo}[1]{\renewcommand{\instituteLogo}{#1}}
+% \newcommand{\setcompanylogo}[1]{\renewcommand{\companyLogo}{#1}}
+% \newcommand{\setleftsidelogo}[1]{\renewcommand{\leftSideLogo}{#1}}
+% \newcommand{\setrightsidelogo}[1]{\renewcommand{\rightSideLogo}{#1}}
+%
+% % Custom footline
+% \setbeamertemplate{footline}{
+%   \leavevmode
+%   \hbox{
+%     % left-side logo
+%     \begin{beamercolorbox}[wd=0.13\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
+%       \includegraphics[width=15ex]{\leftSideLogo}
+%     \end{beamercolorbox}
+%
+%     \begin{beamercolorbox}[wd=0.05\paperwidth,ht=2.5ex,dp=2.5ex,left]{frame number in head/foot}
+%         {\color{primaryColor}\fontsize{6pt}{6pt}\textbf{\selectfont\insertframenumber{} / \inserttotalframenumber}}
+%     \end{beamercolorbox}
+%     \begin{beamercolorbox}[wd=0.35\paperwidth,ht=2.5ex,dp=2.5ex,left]{author in head/foot}
+%         {\color{gray}\fontsize{4pt}{6pt}\selectfont \insertshortauthor{} / \insertshortinstitute}
+%     \end{beamercolorbox}
+%     \begin{beamercolorbox}[wd=0.1\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
+%         {\color{gray}\fontsize{4pt}{6pt}\selectfont \insertshortdate{}}
+%     \end{beamercolorbox}
+%     \begin{beamercolorbox}[wd=0.1\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
+%         {\color{gray}\fontsize{4pt}{6pt}\selectfont Classification: \classificationID}
+%     \end{beamercolorbox}
+%     \begin{beamercolorbox}[wd=0.1\paperwidth,ht=2.5ex,dp=2.5ex,left]{date in head/foot}
+%         {\color{gray}\fontsize{4pt}{6pt}\selectfont Conservation: \conservationInfo}
+%     \end{beamercolorbox}
+%
+%     % left-side logo
+%     \begin{beamercolorbox}[wd=0.13\paperwidth,ht=2.5ex,dp=2.5ex,right]{date in head/foot}
+%       \includegraphics[width=15ex]{\rightSideLogo}\hspace{1.5ex}
+%     \end{beamercolorbox}
+%   }
+%   \vskip0pt
+% }
 
 \newcommand{\finalpreztitlepage}{
   \begin{center}
