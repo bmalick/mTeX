@@ -226,21 +226,22 @@ start_template_cheatsheet() {
 \vspace{1em}
 
 \begin{multicols}{2}
+\raggedcolumns
 
-\section*{SECTION1}
+\section*{}
 
 {\footnotesize
 \begin{tabularx}{\linewidth}{l l}
 \end{tabularx}
 }
 
-\section*{SECTION2}
+\section*{}
 {\footnotesize
 \begin{tabularx}{\linewidth}{l l}
 \end{tabularx}
 }
 
-\section*{Copying \& syncing}
+\section*{}
 {\footnotesize\color{bodycolor} SUBSECTION1}
 \vspace{0.5em}
 
@@ -260,19 +261,19 @@ start_template_cheatsheet() {
 \columnbreak
 
 
-\section*{SECTION4}
+\section*{}
 {\footnotesize
 \begin{tabularx}{\linewidth}{l l}
 \end{tabularx}
 }
 
-\section*{SECTION5}
+\section*{}
 {\footnotesize
 \begin{tabularx}{\linewidth}{l l}
 \end{tabularx}
 }
 
-\section*{SECTION6}
+\section*{}
 {\footnotesize
 \begin{tabularx}{\linewidth}{l X}
 \end{tabularx}

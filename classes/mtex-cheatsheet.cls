@@ -27,7 +27,7 @@
 {} % label
 {0.5ex} % sep
 {
-    \rule{0.5\textwidth}{0.8pt}
+    \rule{\columnwidth}{0.8pt}
 } % before-code
 
 
